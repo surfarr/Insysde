@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>About</h2>
+  <p>Campus Dashboard shows weather, next bus departures and commercial aircraft
+  overhead for the University of Liechtenstein campus in Vaduz. Data is cached for 60 seconds.
+  Built for the Information Systems Development course.</p>
+  <h3>Data sources</h3>
+  <ul>
+    <li><a href="https://open-meteo.com/">Open-Meteo</a> – weather, licensed CC BY 4.0.</li>
+    <li><a href="https://transport.opendata.ch/">transport.opendata.ch</a> – public transport departures.</li>
+    <li><a href="https://airplanes.live/">airplanes.live</a> – ADS-B aircraft positions.</li>
+  </ul>
+  <p>All free for non-commercial use, without any service guarantee.</p>
+</section>
+{% endblock %}

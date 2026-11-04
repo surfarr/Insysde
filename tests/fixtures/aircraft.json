@@ -1,0 +1,4 @@
+{"ac": [
+ {"flight": "SWR123  ", "r": "HB-JCA", "t": "A320", "category": "A3", "alt_baro": 35000, "gs": 450, "track": 90, "lat": 47.2, "lon": 9.6},
+ {"flight": "HBABC", "r": "HB-ABC", "t": "C172", "category": "A1", "alt_baro": 4000, "gs": 90, "track": 180, "lat": 47.1, "lon": 9.5},
+ {"flight": "XYZ999", "r": "N1", "t": "B738", "alt_baro": "ground", "gs": 0, "lat": 47.15, "lon": 9.52}]}

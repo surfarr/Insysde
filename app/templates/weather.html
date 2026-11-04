@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Weather{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Weather</h2>
+  {% if weather.data %}
+    <p class="big">{{ weather.data.temperature }} °C – {{ weather.data.description }}</p>
+    <ul>
+      <li>Apparent temperature: {{ weather.data.apparent_temperature }} °C</li>
+      <li>Wind speed: {{ weather.data.wind_speed }} km/h</li>
+      <li>Precipitation: {{ weather.data.precipitation }} mm</li>
+      <li>Weather code: {{ weather.data.weather_code }}</li>
+    </ul>
+    <h3>Next 6 hours</h3>
+    <table>
+      <tr><th>Time</th><th>Temp</th><th>Precip.</th><th>Conditions</th></tr>
+      {% for h in weather.data.next_hours %}
+      <tr><td>{{ h.time }}</td><td>{{ h.temperature }} °C</td><td>{{ h.precipitation }} mm</td><td>{{ h.description }}</td></tr>
+      {% endfor %}
+    </table>
+  {% else %}<p class="unavailable">currently unavailable</p>{% endif %}
+  <p class="updated">Last updated {{ weather.updated }}</p>
+</section>
+{% endblock %}

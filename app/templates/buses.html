@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Buses{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Next departures – {{ station }}</h2>
+  {% if buses.data %}
+    <table>
+      <tr><th>Line</th><th>Destination</th><th>Scheduled</th><th>Delay</th><th>In</th></tr>
+      {% for b in buses.data %}
+      <tr class="{{ 'delayed' if b.delay else '' }}">
+        <td>{{ b.line }}</td><td>{{ b.destination }}</td><td>{{ b.time }}</td>
+        <td>{% if b.delay is not none %}+{{ b.delay }} min{% else %}–{% endif %}</td>
+        <td>{{ b.minutes }} min</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% elif buses.data is none %}<p class="unavailable">currently unavailable</p>
+  {% else %}<p>No departures.</p>{% endif %}
+  <p class="updated">Last updated {{ buses.updated }}</p>
+</section>
+{% endblock %}

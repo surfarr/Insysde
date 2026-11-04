@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Flights{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Commercial aircraft within {{ radius }} NM</h2>
+  {% if flights.data %}
+    <table>
+      <tr><th>Callsign</th><th>Airline</th><th>Reg.</th><th>Type</th><th>Altitude</th><th>Speed</th><th>Heading</th><th>Distance</th></tr>
+      {% for f in flights.data %}
+      <tr>
+        <td>{{ f.callsign }}</td><td>{{ f.airline }}</td><td>{{ f.registration }}</td><td>{{ f.type }}</td>
+        <td>{{ f.altitude_ft }} ft</td><td>{{ f.ground_speed_kt }} kt</td><td>{{ f.heading }}°</td><td>{{ f.distance_km }} km</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% elif flights.data is none %}<p class="unavailable">currently unavailable</p>
+  {% else %}<p>No commercial aircraft in range.</p>{% endif %}
+  <p class="updated">Last updated {{ flights.updated }}</p>
+</section>
+{% endblock %}
