@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid">
+  <section class="card">
+    <h2><a href="{{ url_for('weather_page') }}">Weather</a></h2>
+    {% if weather.data %}
+      <p class="big">{{ weather.data.temperature }} °C</p>
+      <p>{{ weather.data.description }}</p>
+      <p>Feels like {{ weather.data.apparent_temperature }} °C · wind {{ weather.data.wind_speed }} km/h · precipitation {{ weather.data.precipitation }} mm</p>
+    {% else %}<p class="unavailable">currently unavailable</p>{% endif %}
+    <p class="updated">Last updated {{ weather.updated }}</p>
+  </section>
+  <section class="card">
+    <h2><a href="{{ url_for('buses_page') }}">Next buses</a></h2>
+    {% if buses.data %}
+      <table>
+        {% for b in buses.data %}
+        <tr class="{{ 'delayed' if b.delay else '' }}">
+          <td>{{ b.line }}</td><td>{{ b.destination }}</td><td>{{ b.time }}</td><td>{{ b.minutes }} min</td>
+        </tr>
+        {% endfor %}
+      </table>
+    {% elif buses.data is none %}<p class="unavailable">currently unavailable</p>
+    {% else %}<p>No departures.</p>{% endif %}
+    <p class="updated">Last updated {{ buses.updated }}</p>
+  </section>
+  <section class="card">
+    <h2><a href="{{ url_for('flights_page') }}">Aircraft overhead</a></h2>
+    {% if flights.data %}
+      <table>
+        {% for f in flights.data %}
+        <tr><td>{{ f.callsign }}</td><td>{{ f.airline }}</td><td>{{ f.altitude_ft }} ft</td><td>{{ f.distance_km }} km</td></tr>
+        {% endfor %}
+      </table>
+    {% elif flights.data is none %}<p class="unavailable">currently unavailable</p>
+    {% else %}<p>No commercial aircraft in range.</p>{% endif %}
+    <p class="updated">Last updated {{ flights.updated }}</p>
+  </section>
+</div>
+<p class="updated">This page refreshes automatically every {{ refresh }} seconds.</p>
+{% endblock %}
