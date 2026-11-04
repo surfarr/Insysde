@@ -1,4 +1,4 @@
-"""Aircraft overhead from airplanes.live (no key, max 1 request/second)."""
+"""Aircraft overhead from adsb.lol (no key, community ADS-B network)."""
 import math
 import re
 
@@ -6,7 +6,8 @@ import requests
 
 from config import REQUEST_TIMEOUT
 
-URL = "https://api.airplanes.live/v2/point/{lat}/{lon}/{radius}"
+URL = "https://api.adsb.lol/v2/lat/{lat}/lon/{lon}/dist/{radius}"
+HEADERS = {"User-Agent": "CampusDashboard/1.0 (student project)"}
 MIN_ALTITUDE_FT = 10000
 
 AIRLINES = {
@@ -94,8 +95,9 @@ def get_aircraft(lat, lon, radius_nm):
     """Return list of aircraft dicts, or None on any error."""
     try:
         resp = requests.get(URL.format(lat=lat, lon=lon, radius=radius_nm),
-                            timeout=REQUEST_TIMEOUT)
+                            headers=HEADERS, timeout=REQUEST_TIMEOUT)
         resp.raise_for_status()
         return parse_aircraft(resp.json(), lat, lon)
-    except Exception:
+    except Exception as e:
+        print("flights error:", repr(e))
         return None
